@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lan="en">
+  <head>
+    <title>YouTube Channels</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container-fluid text-center" id="main-container">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <h1 class="text-light mt-3">YouTube Videos</h1>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control py-4"
+              id="searchVideo"
+              placeholder="Search youtube video"
+              aria-label="Youtube video name"
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append">
+              <input
+                type="submit"
+                value="Search"
+                class="input-group-text"
+                id="search"
+                onclick="startSearching();"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="videos" class="row"></div>
+    </div>
+
+    <script>
+      function startSearching() {
+        const search = document.getElementById("search");
+        const video = document.getElementById("searchVideo");
+        search.addEventListener("click", e => {
+          e.preventDefault();
+          const API_KEY = "AIzaSyBJhedZSUT3KuwKbm2oyp7O1ub_GTBfGGA";
+          const MAX_RESULTS = 100;
+          fetch(
+            `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${video.value}&part=snippet,id&type=video&order=viewCount&maxResults=${MAX_RESULTS}`
+          )
+            .then(response => response.json())
+            .then(data => {
+              if (data && data.items) {
+                data.items.forEach(item => {
+                  const videoId = item.id.videoId;
+                  const videoTitle = item.snippet.title;
+                  const videoThumbnail = item.snippet.thumbnails.default.url;
+                  const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
+                  const videoCard = `
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <a href="${videoLink}" target="_blank">
+                  <img class="card-img-top" src="${videoThumbnail}" alt="${videoTitle}">
+                </a>
+                <div class="card-body">
+                  <h5 class="card-title">${videoTitle}</h5>
+                </div>
+              </div>
+            </div>
+          `;
+                  document.querySelector("#videos").innerHTML += videoCard;
+                  video.value = "";
+                });
+              }
+            })
+            .catch(error => console.error(error));
+        });
+      }
+      startSearching();
+    </script>
+  </body>
+</html>
