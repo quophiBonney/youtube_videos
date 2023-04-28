@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lan="en">
+<html lang="en">
   <head>
-    <title>YouTube Channels</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container-fluid text-center" id="main-container">
       <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-10" id="sec-container">
           <h1 class="text-light mt-3">YouTube Videos</h1>
           <div class="input-group mb-3">
             <input
               type="text"
-              class="form-control py-4"
+              class="form-control py-3"
               id="searchVideo"
               placeholder="Search youtube video"
               aria-label="Youtube video name"
@@ -26,7 +26,7 @@
               <input
                 type="submit"
                 value="Search"
-                class="input-group-text"
+                class="input-group-text py-3"
                 id="search"
                 onclick="startSearching();"
               />
@@ -34,51 +34,46 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="container">
       <div id="videos" class="row"></div>
     </div>
-
-    <script>
-      function startSearching() {
-        const search = document.getElementById("search");
-        const video = document.getElementById("searchVideo");
-        search.addEventListener("click", e => {
-          e.preventDefault();
-          const API_KEY = "AIzaSyBJhedZSUT3KuwKbm2oyp7O1ub_GTBfGGA";
-          const MAX_RESULTS = 100;
-          fetch(
-            `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${video.value}&part=snippet,id&type=video&order=viewCount&maxResults=${MAX_RESULTS}`
-          )
-            .then(response => response.json())
-            .then(data => {
-              if (data && data.items) {
-                data.items.forEach(item => {
-                  const videoId = item.id.videoId;
-                  const videoTitle = item.snippet.title;
-                  const videoThumbnail = item.snippet.thumbnails.default.url;
-                  const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
-                  const videoCard = `
-            <div class="col-md-4 mb-3">
-              <div class="card">
-                <a href="${videoLink}" target="_blank">
-                  <img class="card-img-top" src="${videoThumbnail}" alt="${videoTitle}">
-                </a>
-                <div class="card-body">
-                  <h5 class="card-title">${videoTitle}</h5>
-                </div>
-              </div>
-            </div>
-          `;
-                  document.querySelector("#videos").innerHTML += videoCard;
-                  video.value = "";
-                });
-              }
-            })
-            .catch(error => console.error(error));
-        });
-      }
-      startSearching();
-    </script>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Hi there</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
+            explicabo obcaecati sunt! Modi ex, dolor temporibus quos adipisci
+            est ipsam soluta atque repellendus sequi! Officia corporis tempore
+            quam dolorem maxime. Sit saepe molestiae, perspiciatis culpa maxime
+            accusamus aliquam ea voluptatibus sapiente qui fugit libero,
+            dignissimos fuga facere nobis ratione velit impedit dolores? Rerum,
+            blanditiis ducimus odit quam sapiente repellat unde temporibus hic
+            in, vel nisi voluptates molestiae. Quaerat blanditiis, maiores
+            debitis reiciendis adipisci rem repudiandae natus voluptate
+            praesentium, modi illum earum vel commodi. Tempore ad eligendi
+            pariatur est facere aliquam provident! Nulla, consequatur blanditiis
+            repellat earum porro tenetur expedita sequi?
+          </p>
+        </div>
+        <div class="col-md-6">
+          <h3>Hi there</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
+            explicabo obcaecati sunt! Modi ex, dolor temporibus quos adipisci
+            est ipsam soluta atque repellendus sequi! Officia corporis tempore
+            quam dolorem maxime. Sit saepe molestiae, perspiciatis culpa maxime
+            accusamus aliquam ea voluptatibus sapiente qui fugit libero,
+            dignissimos fuga facere nobis ratione velit impedit dolores? Rerum,
+            blanditiis ducimus odit quam sapiente repellat unde temporibus hic
+            in, vel nisi voluptates molestiae. Quaerat blanditiis, maiores
+            debitis reiciendis adipisci rem repudiandae natus voluptate
+            praesentium, modi illum earum vel commodi. Tempore ad eligendi
+            pariatur est facere aliquam provident! Nulla, consequatur blanditiis
+            repellat earum porro tenetur expedita sequi?
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="custom.js"></script>
   </body>
 </html>
