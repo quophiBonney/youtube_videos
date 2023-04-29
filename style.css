@@ -16,3 +16,13 @@ p {
     background: lavender;
     opacity: 0.8;
 }
+h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 30px;
+    background: red;
+    width: 50px;
+    height: 50px;
+    border: 2px solid lavender;
+    text-align: center;
+    color: #fff;
+}
